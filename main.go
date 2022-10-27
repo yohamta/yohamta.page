@@ -8,7 +8,8 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", indexHandler)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", indexHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -17,7 +18,7 @@ func main() {
 	}
 
 	log.Printf("Listening on port %s", port)
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
+	if err := http.ListenAndServe(":"+port, mux); err != nil {
 		log.Fatal(err)
 	}
 }
