@@ -1,32 +1,42 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
+	"website/web"
 )
 
 func main() {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", indexHandler)
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
-		log.Printf("Defaulting to port %s", port)
+		infoLog.Printf("Defaulting to port %s", port)
 	}
 
-	log.Printf("Listening on port %s", port)
-	if err := http.ListenAndServe(":"+port, mux); err != nil {
-		log.Fatal(err)
+	templateCache, err := web.NewTemplateCache()
+	if err != nil {
+		errorLog.Fatal(err)
 	}
-}
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
+	app := &web.App{
+		InfoLog:       infoLog,
+		ErrorLog:      errorLog,
+		TemplateCache: templateCache,
 	}
-	fmt.Fprint(w, "Hello, World!")
+
+	srv := &http.Server{
+		Addr:     net.JoinHostPort("", port),
+		ErrorLog: errorLog,
+		Handler:  app.Routes(),
+	}
+
+	infoLog.Printf("Listening on port %s", port)
+	if err := srv.ListenAndServe(); err != nil {
+		errorLog.Fatal(err)
+	}
 }
