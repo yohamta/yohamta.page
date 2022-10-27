@@ -36,6 +36,12 @@ h3 {
 	line-height: 27px;
 }
 
+hr {
+	height: 1px;
+	border: none;
+	width: 100%;
+	margin: 0px;
+}
 
 @media (prefers-color-scheme: dark) {
     body {
@@ -46,9 +52,12 @@ h3 {
     a[href] {
     	color: #1e8ad6;
     }
-    
+
     a[href]:hover {
     	color: #3ba0e6;
     }
 
+    hr {
+	    background-color: #d8d8d8;
+    }
 }

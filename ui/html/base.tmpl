@@ -5,24 +5,16 @@
     <meta charset="utf-8" />
     <title>{{template "title" .}} - Yohamta's Website</title>
     <link rel="stylesheet" href="/static/css/main.css" />
-    <link
-      rel="shortcut icon"
-      href="/static/img/favicon.ico"
-      type="image/x-icon"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700"
-    />
   </head>
   <body>
     <header>
       <h1><a href="/">Yohamta's Website</a></h1>
     </header>
-    {{template "nav" .}}
     <main>
       {{template "main" .}}
     </main>
+    <hr />
+    {{template "nav" .}}
     <footer>
       Yohamta's Website © {{.CurrentYear}}
     </footer>
