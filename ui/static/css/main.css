@@ -15,6 +15,9 @@ body {
         sans-serif,
         "Apple Color Emoji",
         "Segoe UI Emoji";
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 p {
@@ -50,11 +53,11 @@ hr {
     }
 
     a[href] {
-    	color: #1e8ad6;
+    	color: #5C8EC9;
     }
 
     a[href]:hover {
-    	color: #3ba0e6;
+    	color: #6DA5E8;
     }
 
     hr {
